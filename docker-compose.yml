@@ -7,3 +7,11 @@ services:
     restart: unless-stopped
     ports:
       - "${HTTP_PORT:-80}:80"
+    environment:
+      # Apache runs as this uid/gid so files PHP writes stay editable on the
+      # host. Defaults suit Linux/WSL; override if `id -u` says otherwise.
+      PUID: "${PUID:-1000}"
+      PGID: "${PGID:-1000}"
+    volumes:
+      # Live editing: changes in src/ are served immediately, no rebuild.
+      - ./src:/var/www/html

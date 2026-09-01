@@ -4,7 +4,7 @@ A starting point for students who want to build **without a framework**, in plai
 
 Single entry point:
 
-- **`index.php`** — rendered on the server. No JavaScript involved.
+- **`src/index.php`** — rendered on the server. No JavaScript involved.
 
 ## Requirements
 
@@ -13,13 +13,17 @@ Single entry point:
 ## Project structure
 
 ```
-├── index.php            # the app — rendered on the server (Port 80)
+├── src/                 # your code — everything in here is served (Port 80)
+│   └── index.php        # the start page
 ├── Dockerfile           # PHP 8.4 + Apache image
 ├── docker-compose.yml   # Docker Compose configuration
-├── docker-entrypoint.sh # fixes permissions, then starts Apache
+├── docker-entrypoint.sh # matches the web server user, then starts Apache
 ├── start.sh             # start/stop containers
 └── build.sh             # build and export images
 ```
+
+Only `src/` is served. The Dockerfile and the scripts sit outside it, so they can
+never be fetched over HTTP.
 
 ## Start the environment
 
@@ -28,6 +32,14 @@ Single entry point:
 ```
 
 - **http://localhost** → the PHP page
+
+### Editing your code
+
+`src/` is mounted into the container, so **edit a file, reload the browser, done** —
+no rebuild and no restart. New files and folders work too: `src/kontakt.php` is
+served at http://localhost/kontakt.php.
+
+You only need `./build.sh` or `./start.sh -b` when the `Dockerfile` itself changes.
 
 Run in the background:
 
@@ -92,4 +104,14 @@ The port can be changed with the `HTTP_PORT` environment variable:
 
 ```bash
 HTTP_PORT=8080 ./start.sh
+```
+
+## File permissions
+
+Apache runs as your own user so that files PHP creates (uploads, generated files)
+stay editable on the host. The default is `1000:1000`, which is correct for Linux
+and WSL. If `id -u` reports something else, set it explicitly:
+
+```bash
+PUID=$(id -u) PGID=$(id -g) ./start.sh
 ```
