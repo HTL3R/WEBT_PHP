@@ -1,0 +1,10 @@
+.git
+.gitignore
+.idea
+.DS_Store
+Dockerfile
+.dockerignore
+docker-compose.yml
+build.sh
+start.sh
+_images/

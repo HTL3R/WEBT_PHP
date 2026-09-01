@@ -1,8 +1,12 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: webt-php
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - "${HTTP_PORT:-80}:80"
     environment:
       # SQLite file, outside the document root
       DB_PATH: "/var/www/data/app.db"
