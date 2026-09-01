@@ -22,8 +22,9 @@ Single entry point:
 └── build.sh             # build and export images
 ```
 
-Only `src/` is served. The Dockerfile and the scripts sit outside it, so they can
-never be fetched over HTTP.
+`src/` is both *mapped* into the container and *served*: here they are the same
+folder, so everything you put in `src/` is reachable over HTTP. The Dockerfile and
+the scripts sit outside it and can never be fetched.
 
 ## Start the environment
 
@@ -33,11 +34,26 @@ never be fetched over HTTP.
 
 - **http://localhost** → the PHP page
 
-### Editing your code
+### Where to work
 
-`src/` is mounted into the container, so **edit a file, reload the browser, done** —
-no rebuild and no restart. New files and folders work too: `src/kontakt.php` is
-served at http://localhost/kontakt.php.
+**You work directly in `src/` on your own machine.** That folder is mapped into
+the container:
+
+```
+src/  ->  /var/www/html   (inside the container)
+```
+
+So there is no separate place to put your code and nothing to copy anywhere: the
+files you see in `src/` are exactly the files the web server runs. New files and
+folders work too — `src/kontakt.php` is served at http://localhost/kontakt.php.
+
+The mapping goes both ways, so anything your PHP code writes (uploads, generated
+files) appears in `src/` as well, owned by you and editable as normal.
+
+### Live editing
+
+Because the folder is mapped rather than copied, **edit a file, reload the
+browser, done** — no rebuild and no restart.
 
 You only need `./build.sh` or `./start.sh -b` when the `Dockerfile` itself changes.
 
