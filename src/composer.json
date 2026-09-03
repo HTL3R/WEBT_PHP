@@ -1,0 +1,17 @@
+{
+    "name": "htlw3r/whp",
+    "description": "WHP – PHP-Projekt (HTL Wien 3 Rennweg)",
+    "type": "project",
+    "require": {
+        "php": ">=8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "HTLW3R\\WHP\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
