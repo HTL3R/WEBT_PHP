@@ -3,7 +3,7 @@
     "description": "WHP – PHP-Projekt (HTL Wien 3 Rennweg)",
     "type": "project",
     "require": {
-        "php": ">=8.4"
+        "php": ">=8.5"
     },
     "autoload": {
         "psr-4": {

@@ -15,7 +15,7 @@ Single entry point:
 ```
 ├── src/                 # your code — everything in here is served (Port 80)
 │   └── index.php        # the start page
-├── Dockerfile           # PHP 8.4 + Apache image
+├── Dockerfile           # PHP 8.5 + Apache image
 ├── docker-compose.yml   # Docker Compose configuration
 ├── docker-entrypoint.sh # matches the web server user, then starts Apache
 ├── start.sh             # start/stop containers
