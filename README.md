@@ -1,4 +1,4 @@
-# Vanilla PHP
+# WEBT PHP
 
 A starting point for students who want to build **without a framework**, in plain PHP.
 
