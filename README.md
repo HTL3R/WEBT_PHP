@@ -131,3 +131,7 @@ and WSL. If `id -u` reports something else, set it explicitly:
 ```bash
 PUID=$(id -u) PGID=$(id -g) ./start.sh
 ```
+
+The defaults live in `.env`. Keep them there: podman-compose only applies the
+`${PUID:-1000}` defaults in `docker-compose.yml` when the variable is defined
+somewhere, so without `.env` the container fails to start under Podman.
