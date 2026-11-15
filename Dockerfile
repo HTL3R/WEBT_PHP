@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.5-apache
 
 # git/unzip, damit Composer Pakete beziehen und entpacken kann.
 RUN apt-get update \
