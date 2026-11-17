@@ -6,7 +6,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Composer aus dem offiziellen Image übernehmen (Version reproduzierbar gepinnt).
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Voll qualifizierter Name: podman löst den Kurznamen "composer" nicht auf.
+COPY --from=docker.io/library/composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # DocumentRoot auf public/ umbiegen: nur dieser Ordner wird über HTTP

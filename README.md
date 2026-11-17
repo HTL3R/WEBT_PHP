@@ -8,7 +8,9 @@ Single entry point:
 
 ## Requirements
 
-- [Docker](https://docs.docker.com/get-docker/) must be installed.
+- [Docker](https://docs.docker.com/get-docker/) **or** [Podman](https://podman.io/) (with `podman-compose`) must be installed.
+- The scripts use Docker by default. If Podman is installed, Podman is used. Force one with `CONTAINER_ENGINE=docker ./start.sh` or `CONTAINER_ENGINE=podman ./start.sh`.
+- Rootless Podman cannot use ports below 1024, so the app then runs on port **8080** (change it with `HTTP_PORT=...`).
 
 ## Project structure
 
@@ -32,7 +34,7 @@ the scripts sit outside it and can never be fetched.
 ./start.sh
 ```
 
-- **http://localhost** → the PHP page
+- **http://localhost** → the PHP page (rootless Podman: **http://localhost:8080**)
 
 ### Where to work
 
@@ -86,7 +88,7 @@ Build the image (without starting it):
 ./build.sh
 ```
 
-Clean build (without the Docker cache):
+Clean build (without the build cache):
 
 ```bash
 ./build.sh -c
@@ -107,14 +109,14 @@ Options can be combined:
 Load an exported image on another machine:
 
 ```bash
-docker load -i _images/webt-php.tar
+docker load -i _images/webt-php.tar   # or: podman load -i ...
 ```
 
 ## Ports
 
 | Service | URL |
 |---------|-----|
-| PHP app | http://localhost:80 |
+| PHP app | http://localhost:80 (rootless Podman: http://localhost:8080) |
 
 The port can be changed with the `HTTP_PORT` environment variable:
 
